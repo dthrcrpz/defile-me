@@ -14,8 +14,7 @@ class UserController extends Controller
 
         if ($user) {
             return response([
-                'user' => $user,
-                'email' => $user->email
+                'user' => $user
             ]);
         } else {
             return response([
@@ -51,7 +50,7 @@ class UserController extends Controller
     }
 
     public function login (Request $r) {
-        $user = User::where('email', $r->email)->where('type', 1)->first();
+        $user = User::where('email', $r->email)->first();
 
         if ($user) {
             if (Hash::check($r->password, $user->password)) {

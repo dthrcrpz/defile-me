@@ -43,7 +43,7 @@ class UserTest extends TestCase
 
         # get the details of the logged in user
         $this->get('/api/user')
-        ->assertJsonStructure(['user', 'email']);
+        ->assertSee($user->email);
     }
 
     public function test_aUserCanLogout () {
