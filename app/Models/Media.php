@@ -11,6 +11,7 @@ class Media extends Model
     use HasFactory, SoftDeletes;
 
     protected $guarded = ['created_at'];
+    protected $table = 'medias';
 
     public function user () {
     	return $this->belongsTo(User::class);

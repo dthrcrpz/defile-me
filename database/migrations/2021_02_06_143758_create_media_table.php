@@ -13,11 +13,12 @@ class CreateMediaTable extends Migration
      */
     public function up()
     {
-        Schema::create('media', function (Blueprint $table) {
+        Schema::create('medias', function (Blueprint $table) {
             $table->id();
             $table->string('type');
             $table->string('path')->nullable();
             $table->string('path_resized')->nullable();
+            $table->string('temporary_id')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->softDeletes();
             $table->timestamps();
