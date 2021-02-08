@@ -16,4 +16,12 @@ class Media extends Model
     public function user () {
     	return $this->belongsTo(User::class);
     }
+
+    public function getPathAttribute ($value) {
+    	return url('/') . '/storage/uploads/' . $value;
+    }
+
+    public function getPathResizedAttribute ($value) {
+    	return url('/') . '/storage/uploads/' . $value;
+    }
 }
