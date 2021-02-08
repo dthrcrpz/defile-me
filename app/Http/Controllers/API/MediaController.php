@@ -46,13 +46,31 @@ class MediaController extends Controller
         ]);
     }
 
-    public function show (Media $media) {
+    public function show (Media $media, Request $r) {
+        $user = $r->user();
+        if ($media->user_id != $user->id) {
+            return response([
+                'errors' => [
+                    'You do not have permissions to access this media'
+                ]
+            ], 403);
+        }
+
         return response([
             'media' => $media
         ]);
     }
 
-    public function destroy (Media $media) {
+    public function destroy (Media $media, Request $r) {
+        $user = $r->user();
+        if ($media->user_id != $user->id) {
+            return response([
+                'errors' => [
+                    'You do not have permissions to access this media'
+                ]
+            ], 403);
+        }
+
         $media->delete();
 
         return response([
