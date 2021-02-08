@@ -108,7 +108,6 @@ class MediaTest extends TestCase
 
         $attributes = [
             'file' => $file,
-            'type' => 'image',
             'temporary_id' => $temporaryID
         ];
 

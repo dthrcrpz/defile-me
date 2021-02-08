@@ -38,7 +38,7 @@ class MediaController extends Controller
         	'type' => $type,
         	'path' => $uploaded->path,
         	'path_resized' => $uploaded->path_resized,
-            'temporary_id' => str_random(15)
+            'temporary_id' => (isset($r->temporary_id)) ? $r->temporary_id : str_random(15)
         ]);
 
         return response([
