@@ -15,6 +15,24 @@ class MediaTest extends TestCase
 {
     use DatabaseTransactions;
 
+    public function test_aUserCannotAccessMediaOfOtherUsers () {
+        $this->withoutExceptionHandling();
+
+        # create an 'exploiting' user that will try to access other media later
+        $exploitingUser = $this->createUser();
+
+        # create a media using a different user (a different user is already created on this function)
+        $file = UploadedFile::fake()->image('avatar.jpg');
+        $mediaByOtherUser = $this->createMedia($file);
+
+        # log the exploiting user in
+        Passport::actingAs($exploitingUser);
+
+        # call the show API
+        $response = $this->get("/api/medias/$mediaByOtherUser->id");
+        $response->assertStatus(403);
+    }
+
     public function test_theMediasOfAUserCanBeFetched () {
         $this->withoutExceptionHandling();
 
