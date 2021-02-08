@@ -54,7 +54,7 @@ class UserController extends Controller
 
         if ($user) {
             if (Hash::check($r->password, $user->password)) {
-                $token = $user->createToken('GGTC API Grant')->accessToken;
+                $token = $user->createToken('DefileMe API Grant')->accessToken;
 
                 return response([
                     'token' => $token,

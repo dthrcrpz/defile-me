@@ -20,7 +20,6 @@ class MediaController extends Controller
 
     public function store (Request $r) {
     	$validator = \Validator::make($r->all(), [
-            'type' => 'required',
             'file' => 'required',
         ]);
 
@@ -30,24 +29,16 @@ class MediaController extends Controller
             ], 400);
         }
 
-        # validate temporary id
-        $tempIdExists = Media::where('temporary_id')->exists();
-        if ($tempIdExists) {
-            return response([
-                'errors' => 'Invalid temporary id'
-            ], 400);
-        }
-
         $uploaded = uploadFile($r->file);
-
         $user = $r->user();
+        $type = (fileIsImage($r->file)) ? 'image' : 'video';
 
         $media = Media::create([
         	'user_id' => $user->id,
-        	'type' => $r->type,
+        	'type' => $type,
         	'path' => $uploaded->path,
         	'path_resized' => $uploaded->path_resized,
-            'temporary_id' => $r->temporary_id
+            'temporary_id' => str_random(15)
         ]);
 
         return response([
